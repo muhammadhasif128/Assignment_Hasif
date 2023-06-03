@@ -87,19 +87,19 @@ while True:
             Book_Store[book_ISBN.get_isbn()] = [book_ISBN.get_title(), book_ISBN.get_category(), book_ISBN.get_publisher(), book_ISBN.get__year_published()]
             break
 
-    elif input_option == '3':
+    elif input_option == '3':  # category, ascending, small to big
         book_list = list(Book_Store.items())  # ask dong en
         ascending_bubble(book_list)
         Book_Store = dict(book_list)
 
         for i in Book_Store:
-            print(f"Publisher: {Book_Store[i][2]}")
+            print(f"Category: {Book_Store[i][1]}")
             print(f"ISBN: {i}")
             print(f"Title: {Book_Store[i][0]}")
-            print(f"Category: {Book_Store[i][1]}")
-            print(f"Year Published: {book_list[i][3]}\n")
+            print(f"Publisher: {Book_Store[i][2]}")
+            print(f"Year Published:{Book_Store[i][3]}\n")
 
-    elif input_option == '4':
+    elif input_option == '4':  # publisher, descending, big to small
         book_list = list(Book_Store.items())
         descending_selection(book_list)
         Book_Store = dict(book_list)
@@ -109,7 +109,7 @@ while True:
             print(f"ISBN: {i}")
             print(f"Title: {Book_Store[i][0]}")
             print(f"Category: {Book_Store[i][1]}")
-            print(f"Year Published: {book_list[i][3]}\n")
+            print(f"Year Published: {Book_Store[i][3]}\n")
 
     elif input_option == '5':
         sys.exit()
