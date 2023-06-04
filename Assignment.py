@@ -1,15 +1,18 @@
-import sys
+import sys  # program exits properly, instead if break
 
-Book_Store = {}  # key, value
+Book_Store = {'9781449340377': ["Python Cookbook", "Education", "Oreilly", 2013], '9781118951798': ["Adventures in Python", "Adventure", "Wiley", 2015]}
+
+# first list, is the list, value of the list
+# key, value
 
 # 2 sorting functions
 
 
 def ascending_bubble(theSeq):
     n = len(theSeq)
-    for i in range(n - 1, 0, -1):  # all the ranges are for counting the index
+    for i in range(n - 1, 0, -1):  # all the ranges are for counting the index, start(reverse, from the back), stop(0, go from back to front), step(go backwards)
         for j in range(i):
-            if theSeq[j][1][1] > theSeq[j + 1][1][1]:  # [] dictionary list value
+            if theSeq[j][1][1] > theSeq[j + 1][1][1]:  # [] dictionary list, next one index of the list, if want to change to descending just flip the sign
                 tmp = theSeq[j]
                 theSeq[j] = theSeq[j+1]
                 theSeq[j + 1] = tmp  # tmp = temporary
@@ -65,25 +68,54 @@ while True:
 
     if input_option == '1':
         for keys in Book_Store:
-            print(keys, Book_Store[keys])
+            print(f"ISBN: {keys}")
+            print(f"Title: {Book_Store[keys][0]}")
+            print(f"Category: {Book_Store[keys][1]}")
+            print(f"Publisher: {Book_Store[keys][2]}")
+            print(f"Year Published:{Book_Store[keys][3]}\n")
 
     elif input_option == '2':
-        while True:
-            book_ISBN = input("Enter book ISBN: ")
+            ISBN = input("Enter book ISBN: ")
+            while True:
+                if ISBN in Book_Store or len(ISBN) != 13:
+                    print("Duplicate entries.\nEnter Again.")
+                    ISBN = input("Enter book ISBN: ")
+                else:
+                    break
 
-            if book_ISBN in Book_Store:
-                print("Duplicate entries.\nEnter Again.")
-                book_ISBN = input("Enter book ISBN: ")
             title = input("Enter book title: ")
+            while True:
+                if len(title) == 0:
+                     print("Title should be in Words. Enter Again\n")
+                     title = input("Enter book title: ")
+                else:
+                    break
+
             category = input("Enter book category: ")
+            while True:
+                if len(category) == 0:
+                    print("Category should be in Words. Enter Again\n")
+                    category = input("Enter book category: ")
+                else:
+                    break
+
             publisher = input("Enter book publisher: ")
+            while True:
+                if len(publisher) == 0:
+                    print("Publisher should be in Words. Enter Again\n")
+                    publisher = input("Enter book publisher: ")
+                else:
+                    break
+
             year_published = int(input("Enter book's year of published: "))
+            while True:
+                if year_published < 1900 or len(str(year_published)):
+                    print("Year published doesn't exist/invalid year format!\nKey in again\n")
+                    year_published = input("Enter book's year of published: ")
+                else:
+                    break
 
-            if year_published < 1900 or len(str(year_published)):
-                print("Year published doesn't exist/invalid year format!\nKey in again\n")
-                year_published = input("Enter book's year of published: ")
-
-            book_ISBN = Book(book_ISBN, title, category, publisher, year_published)
+            book_ISBN = Book(ISBN, title, category, publisher, year_published)
             Book_Store[book_ISBN.get_isbn()] = [book_ISBN.get_title(), book_ISBN.get_category(), book_ISBN.get_publisher(), book_ISBN.get__year_published()]
             break
 
