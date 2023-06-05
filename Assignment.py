@@ -1,6 +1,10 @@
+# Name: Muhammad Hasif Bin Muhammad Imran
+# Admin No: 224493J
+# Class: CS2202
+
 import sys  # program exits properly, instead if break
 
-Book_Store = {'9781449340377': ["Python Cookbook", "Education", "Oreilly", 2013], '9781118951798': ["Adventures in Python", "Adventure", "Wiley", 2015]}
+Book_Store = {'9781449340377': ["Python Cookbook", "Education", "Oreilly", 2013], '9781118951798': ["Adventures in Python", "Adventure", "Wiley", 2015], '9723428951798': ["I love DSA", "Studies", "Mark", 2019]}
 
 # first list, is the list, value of the list
 # key, value
@@ -21,14 +25,14 @@ def ascending_bubble(theSeq):
 def descending_selection(theSeq):
     n = len(theSeq)
     for i in range(n - 1):
-        smallNdx = i  # smallNdx = small index
+        highNdx = i  # highNdx = high index
         for j in range(i+1, n):
-            if theSeq[j][1][2] > theSeq[smallNdx][1][2]:
-                smallNdx = j
-        if smallNdx != i:  # swapping of indexes
+            if theSeq[j][1][2] > theSeq[highNdx][1][2]:
+                highNdx = j
+        if highNdx != i:  # swapping of indexes
             tmp = theSeq[i]
-            theSeq[i] = theSeq[smallNdx]
-            theSeq[smallNdx] = tmp
+            theSeq[i] = theSeq[highNdx]
+            theSeq[highNdx] = tmp
 
 
 # Class Creation
@@ -78,7 +82,7 @@ while True:
             ISBN = input("Enter book ISBN: ")
             while True:
                 if ISBN in Book_Store or len(ISBN) != 13:
-                    print("Duplicate entries.\nEnter Again.")
+                    print("Duplicate entries OR less than 13 characters\nEnter Again.")
                     ISBN = input("Enter book ISBN: ")
                 else:
                     break
@@ -107,17 +111,15 @@ while True:
                 else:
                     break
 
-            year_published = int(input("Enter book's year of published: "))
             while True:
-                if year_published < 1900 or len(str(year_published)):
+                year_published = input("Enter book's year of published: ")
+                if not year_published.isdigit() or not 1900 <= int(year_published) <= 2023:
                     print("Year published doesn't exist/invalid year format!\nKey in again\n")
-                    year_published = input("Enter book's year of published: ")
                 else:
                     break
 
             book_ISBN = Book(ISBN, title, category, publisher, year_published)
             Book_Store[book_ISBN.get_isbn()] = [book_ISBN.get_title(), book_ISBN.get_category(), book_ISBN.get_publisher(), book_ISBN.get__year_published()]
-            break
 
     elif input_option == '3':  # category, ascending, small to big
         book_list = list(Book_Store.items())  # ask dong en
