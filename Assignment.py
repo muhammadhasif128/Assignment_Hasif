@@ -5,7 +5,7 @@
 import sys  # program exits properly, instead if break
 from tabulate import tabulate
 
-Book_Store = {'9781449340377': ["Python Cookbook", "Education", "Oreilly", 2013], '9781118951798': ["Adventures in Python", "Adventure", "Wiley", 2015], '9723428951798': ["I love DSA", "Studies", "Mark", 2019]}
+Book_Store = {}
 
 # first list, is the list, value of the list
 # key, value
@@ -49,7 +49,44 @@ def insertion_sort(theSeq):
         theSeq[pos][1][0] = value
 
 
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
 
+    mid = len(arr) // 2
+    left_half = arr[:mid]
+    right_half = arr[mid:]
+
+    left_half = merge_sort(left_half)
+    right_half = merge_sort(right_half)
+
+    return merge(left_half, right_half)
+
+
+def merge(left, right):
+    merged = []
+    left_index = 0
+    right_index = 0
+
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index][1][3] < right[right_index][1][3]:
+            merged.append(left[left_index])
+            left_index += 1
+        elif left[left_index][1][3] > right[right_index][1][3]:
+            merged.append(right[right_index])
+            right_index += 1
+        else:
+            if left[left_index][0] <= right[right_index][0]:
+                merged.append(left[left_index])
+                left_index += 1
+            else:
+                merged.append(right[right_index])
+                right_index += 1
+
+    merged.extend(left[left_index:])
+    merged.extend(right[right_index:])
+
+    return merged
 # Class Creation
 class Book:
 
@@ -174,6 +211,25 @@ while True:
             print("\n")
             print(tabulate(table, headers=["Title", "Publisher", "Category", "ISBN", "Year Published"]))
             print("\n")
+
+    elif input_option == '6':
+        book_list = list(Book_Store.items())
+        Book_Store = dict(merge_sort(book_list))
+
+        for i in Book_Store:
+            table = [['Year Published: ', Book_Store[i][3]], ['ISBN: ', i], ['Title: ', Book_Store[i][0]], ['Publisher: ', Book_Store[i][2]], ['Category: ', Book_Store[i][1]]]
+            print('\n')
+            print(tabulate(table))
+
+    elif input_option == '8':
+        Book_Store['9781449340377'] = ["Python Cookbook", "Education", "Oreilly", 2013]
+        Book_Store['9781118951798'] = ["Adventures in Python", "Adventure", "Wiley", 2015]
+        Book_Store['9723428951798'] = ["I love DSA", "Studies", "Mark", 2019]
+        Book_Store['978144934377'] = ['PYTHON COOKBOOK', 'EDUCATION', 'OREILLY', 2015]
+        Book_Store['8978111895179'] = ['ADVENTURES IN PYTHON', 'ADVENTURE', 'WILEY', 2015]
+        Book_Store['9781218951798'] = ['ASCENDING IN PYTHON', 'ADVENTURE', 'WILEY', 2015]
+        Book_Store['9781213951798'] = ['AA IN PYTHON', 'ADVENTURE', 'WILEY', 2013]
+
 
     elif input_option == '0':
         sys.exit()
