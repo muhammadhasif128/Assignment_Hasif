@@ -3,6 +3,7 @@
 # Class: CS2202
 
 import sys  # program exits properly, instead if break
+from tabulate import tabulate
 
 Book_Store = {'9781449340377': ["Python Cookbook", "Education", "Oreilly", 2013], '9781118951798': ["Adventures in Python", "Adventure", "Wiley", 2015], '9723428951798': ["I love DSA", "Studies", "Mark", 2019]}
 
@@ -33,6 +34,20 @@ def descending_selection(theSeq):
             tmp = theSeq[i]
             theSeq[i] = theSeq[highNdx]
             theSeq[highNdx] = tmp
+
+
+def insertion_sort(theSeq):
+    n = len(theSeq)
+    for i in range(1, n):
+        value = theSeq[i][1][0]
+
+        pos = i
+        while pos > 0 and value < theSeq[pos - 1][1][0]:
+            theSeq[pos][1][0] = theSeq[pos - 1][1][0]
+            pos -= 1
+
+        theSeq[pos][1][0] = value
+
 
 
 # Class Creation
@@ -67,8 +82,12 @@ while True:
     print("[2] ----- Adding new books ----- ")
     print("[3] ----- Sort books by category in ascending order using ONLY bubble sort and display the outcome ----- ")
     print("[4] ----- Sort the publisher in descending order using ONLY selection sort and display the outcome ----- ")
-    print("[5] ----- Exit Book Management System ----- \n")
-    input_option = input("Please enter your option :) \n[1]-[5]: ")
+    print("[5] ----- Sort books by Title in ascending order using insertion sort and display ----- ")
+    print("[6] ----- Sort books by Year published and then ISBN in ascending order using Merge sort and display ----- ")
+    print("[7] ----- Manage customer request")
+    print("[8] ----- Populate data")
+    print("[0] ----- Exit Book Management System ----- \n")
+    input_option = input("Please enter your option :) \n[1]-[9] and [0]: ")
 
     if input_option == '1':
         for keys in Book_Store:
@@ -145,7 +164,18 @@ while True:
             print(f"Category: {Book_Store[i][1]}")
             print(f"Year Published: {Book_Store[i][3]}\n")
 
-    elif input_option == '5':
+    elif input_option == '5': # sort by title in ascending order, small to big, using insertion sort
+        book_list = list(Book_Store.items())
+        insertion_sort(book_list)
+        Book_Store = dict(book_list)
+
+        for i in Book_Store:
+            table = [Book_Store[i][0], Book_Store[i][2], Book_Store[i][1], i, Book_Store[i][3]],
+            print("\n")
+            print(tabulate(table, headers=["Title", "Publisher", "Category", "ISBN", "Year Published"]))
+            print("\n")
+
+    elif input_option == '0':
         sys.exit()
     else:
         print('Error')
