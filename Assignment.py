@@ -87,6 +87,14 @@ def merge(left, right):
     merged.extend(right[right_index:])
 
     return merged
+
+def SequentialSearch(theValues, target):
+    n = len(theValues)
+    for i in range(n):
+        if theValues[i] == target:
+            return True
+        return False
+
 # Class Creation
 class Book:
 
@@ -211,6 +219,7 @@ while True:
             print("\n")
             print(tabulate(table, headers=["Title", "Publisher", "Category", "ISBN", "Year Published"]))
             print("\n")
+        break
 
     elif input_option == '6':
         book_list = list(Book_Store.items())
@@ -220,6 +229,30 @@ while True:
             table = [['Year Published: ', Book_Store[i][3]], ['ISBN: ', i], ['Title: ', Book_Store[i][0]], ['Publisher: ', Book_Store[i][2]], ['Category: ', Book_Store[i][1]]]
             print('\n')
             print(tabulate(table))
+            print('\n')
+
+        break
+
+    elif input_option == '7':
+        while True:
+            print('Customer Request Page')
+            print('[1]. Input customer request')
+            print('[2]. View number of request')
+            print('[3]. Service next request in Queue')
+            print('[0]. Return to Main Menu')
+            input_option_2 = input('Please select one')
+
+            if input_option_2 == '1':
+                break
+
+            if input_option_2 == '2':
+                break
+
+            if input_option_2 == '3':
+                break
+
+            if input_option_2 == '0':
+                break
 
     elif input_option == '8':
         Book_Store['9781449340377'] = ["Python Cookbook", "Education", "Oreilly", 2013]
@@ -229,7 +262,6 @@ while True:
         Book_Store['8978111895179'] = ['ADVENTURES IN PYTHON', 'ADVENTURE', 'WILEY', 2015]
         Book_Store['9781218951798'] = ['ASCENDING IN PYTHON', 'ADVENTURE', 'WILEY', 2015]
         Book_Store['9781213951798'] = ['AA IN PYTHON', 'ADVENTURE', 'WILEY', 2013]
-
 
     elif input_option == '0':
         sys.exit()
