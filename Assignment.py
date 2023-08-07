@@ -71,14 +71,14 @@ def merge(left, right):
     right_index = 0
 
     while left_index < len(left) and right_index < len(right):
-        if left[left_index][1][3] < right[right_index][1][3]:  # flip the sign to change it to descending
+        if left[left_index][1][3] < right[right_index][1][3]:  # flip the sign to change it to descending, year published
             merged.append(left[left_index])
             left_index += 1
         elif left[left_index][1][3] > right[right_index][1][3]:
             merged.append(right[right_index])
             right_index += 1
         else:
-            if left[left_index][0] <= right[right_index][0]:  # flip the sign to change it to descending
+            if left[left_index][0] >= right[right_index][0]:  # flip the sign to change it to descending, ISBN
                 merged.append(left[left_index])
                 left_index += 1
             else:
