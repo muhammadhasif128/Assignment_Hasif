@@ -3,10 +3,12 @@
 # Class: CS2202
 
 import sys  # program exits properly, instead if break
+import datetime
 from tabulate import tabulate
 
 Book_Store = {}
-
+customer_details = {}
+customer_id_list = []
 # first list, is the list, value of the list
 # key, value
 
@@ -63,7 +65,7 @@ def merge_sort(arr):
     return merge(left_half, right_half)
 
 
-def merge(left, right):
+def merge(left, right): # divide into 2 and conquer and merge back
     merged = []
     left_index = 0
     right_index = 0
@@ -96,6 +98,8 @@ def SequentialSearch(theValues, target):
         return False
 
 # Class Creation
+
+
 class Book:
 
     def __init__(self, ISBN, Title, Category, Publisher, Year_Published):
@@ -121,6 +125,57 @@ class Book:
         return self.__Year_Published
 
 
+class Queue:
+    def __init__(self):
+        self._qlist = list()
+
+    def get_qlist(self):
+        return self._qlist
+
+    def isEmpty(self):
+        return len(self._qlist) == 0
+
+    def __len__(self):
+        return len(self._qlist)
+
+    def enqueue(self, item):
+        self._qlist.append(item)
+
+    def dequeue(self):
+        assert not self.isEmpty()
+        return self._qlist.pop(0)
+
+    queue_count = 0
+
+
+class Customer_Request:
+    def __init__(self, customer_id, name, email, tier, points):
+        self.__customer_id = customer_id
+        self.__name = name
+        self.__email = email
+        self.__tier = tier
+        self.__points = points
+        self.__get_req = None
+
+    def get_customer_id(self):
+        return self.__customer_id
+
+    def get_name(self):
+        return self.__name
+
+    def get_email(self):
+        return self.__email
+
+    def get_tier(self):
+        return self.__tier
+
+    def get_points(self):
+        return self.__points
+
+    def get_get_req(self):
+        return self.__get_req
+
+    
 while True:
     print("Welcome to Books!\nA retail store that sells books.\nWe will help keep track of your books with our Book Management System.\nKindly choose your option below:\n")
     print("[1] ----- Displaying all your books ----- ")
@@ -219,7 +274,6 @@ while True:
             print("\n")
             print(tabulate(table, headers=["Title", "Publisher", "Category", "ISBN", "Year Published"]))
             print("\n")
-        break
 
     elif input_option == '6':
         book_list = list(Book_Store.items())
@@ -231,27 +285,55 @@ while True:
             print(tabulate(table))
             print('\n')
 
-        break
-
     elif input_option == '7':
+        myQueue = Queue()
         while True:
-            print('Customer Request Page')
-            print('[1]. Input customer request')
-            print('[2]. View number of request')
-            print('[3]. Service next request in Queue')
-            print('[0]. Return to Main Menu')
-            input_option_2 = input('Please select one')
+            print('')
+            print('Customer Request Page: ')
+            print('1. Input customer request')
+            print('2. View number of request')
+            print('3. Service next request in Queue')
+            print('0. Return to Main Menu')
+            options = input('Please select one: ')
 
-            if input_option_2 == '1':
-                break
+            if options == '1':
+                customer_id = input('Enter Customer ID: ')
+                if len(customer_id) == 0:
+                    print('Invalid Input. No empty inputs are allowed.')
+                    customer_id = input('Enter Customer ID: ')
+                if SequentialSearch(customer_id_list, customer_id.upper()):
+                    customer_request = input('Enter Customers request: ')
+                    customer_details[customer_id.upper()][4] = customer_request
+                    myQueue.enqueue([customer_id.upper()] + customer_details[customer_id.upper()])
+                    Queue.queue_count += 1
+                else:
+                    print('Customer request is invalid.')
+                    customer_id = input('Enter Customer ID: ')
+                print('')
+                print('Pending Request')
+                table = [['Customer ID: ', customer_details[customer_id.upper()][0]], ['Email: ', customer_details[customer_id.upper()][1]], ['Tier: ', customer_details[customer_id.upper()][2]], ['Points: ', customer_details[customer_id.upper()][3]], ['Request: ', customer_details[customer_id.upper()][4]]]
+                print(tabulate(table))
+                print('')
+                print('Customers request added successfully!')
+                print('')
 
-            if input_option_2 == '2':
-                break
+            elif options == '2':
+                print('')
+                print(f'Number of request: {Queue.queue_count}')
 
-            if input_option_2 == '3':
-                break
+            elif options == '3':
+                print('')
+                print('Customer Request Details:')
+                print('')
+                ct = datetime.datetime.now()
+                print(f'Current time: {ct}')
+                table = [['Customer ID: ', myQueue.get_qlist()[0][0]], ['Name: ', myQueue.get_qlist()[0][1]], ['Email: ',  myQueue.get_qlist()[0][2]], ['Tier: ', myQueue.get_qlist()[0][3]], ['Points: ', myQueue.get_qlist()[0][4]], ['Request: ', myQueue.get_qlist()[0][5]]]
+                print(tabulate(table))
+                myQueue.dequeue()
+                Queue.queue_count -= 1
+                print(f'Remaining request: {Queue.queue_count}')
 
-            if input_option_2 == '0':
+            elif options == '0':
                 break
 
     elif input_option == '8':
@@ -262,6 +344,16 @@ while True:
         Book_Store['8978111895179'] = ['ADVENTURES IN PYTHON', 'ADVENTURE', 'WILEY', 2015]
         Book_Store['9781218951798'] = ['ASCENDING IN PYTHON', 'ADVENTURE', 'WILEY', 2015]
         Book_Store['9781213951798'] = ['AA IN PYTHON', 'ADVENTURE', 'WILEY', 2013]
+
+        customer_1 = Customer_Request('S111', 'John Tan', 'jtan@yahoo.com', 'C', 2000)
+        customer_2 = Customer_Request('S222', 'Bobby Tan', 'bobby@yahoo.com', 'B', 3000)
+        customer_3 = Customer_Request('S333', 'Tommy Tan', 'tommy@yahoo.com', 'D', 4000)
+
+        customer_details[customer_1.get_customer_id()] = [customer_1.get_name(), customer_1.get_email(), customer_1.get_tier(), customer_1.get_points(), customer_1.get_get_req()]
+        customer_details[customer_2.get_customer_id()] = [customer_2.get_name(), customer_2.get_email(), customer_2.get_tier(), customer_2.get_points(), customer_2.get_get_req()]
+        customer_details[customer_3.get_customer_id()] = [customer_3.get_name(), customer_3.get_email(), customer_3.get_tier(), customer_3.get_points(), customer_3.get_get_req()]
+        for i in customer_details:  # to get the key in the dictionary and append it into the list
+            customer_id_list.append(i)
 
     elif input_option == '0':
         sys.exit()
