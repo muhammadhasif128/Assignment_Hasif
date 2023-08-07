@@ -65,20 +65,20 @@ def merge_sort(arr):
     return merge(left_half, right_half)
 
 
-def merge(left, right): # divide into 2 and conquer and merge back
+def merge(left, right):
     merged = []
     left_index = 0
     right_index = 0
 
     while left_index < len(left) and right_index < len(right):
-        if left[left_index][1][3] < right[right_index][1][3]:
+        if left[left_index][1][3] < right[right_index][1][3]:  # flip the sign to change it to descending
             merged.append(left[left_index])
             left_index += 1
         elif left[left_index][1][3] > right[right_index][1][3]:
             merged.append(right[right_index])
             right_index += 1
         else:
-            if left[left_index][0] <= right[right_index][0]:
+            if left[left_index][0] <= right[right_index][0]:  # flip the sign to change it to descending
                 merged.append(left[left_index])
                 left_index += 1
             else:
@@ -90,18 +90,18 @@ def merge(left, right): # divide into 2 and conquer and merge back
 
     return merged
 
+
 def SequentialSearch(theValues, target):
     n = len(theValues)
     for i in range(n):
         if theValues[i] == target:
             return True
-        return False
+    return False
 
 # Class Creation
 
 
 class Book:
-
     def __init__(self, ISBN, Title, Category, Publisher, Year_Published):
         self.__ISBN = ISBN
         self.__Title = Title
@@ -175,7 +175,7 @@ class Customer_Request:
     def get_get_req(self):
         return self.__get_req
 
-    
+
 while True:
     print("Welcome to Books!\nA retail store that sells books.\nWe will help keep track of your books with our Book Management System.\nKindly choose your option below:\n")
     print("[1] ----- Displaying all your books ----- ")
@@ -298,7 +298,7 @@ while True:
 
             if options == '1':
                 customer_id = input('Enter Customer ID: ')
-                if len(customer_id) == 0:
+                if len(customer_id) == 0: # space checker
                     print('Invalid Input. No empty inputs are allowed.')
                     customer_id = input('Enter Customer ID: ')
                 if SequentialSearch(customer_id_list, customer_id.upper()):
@@ -310,7 +310,7 @@ while True:
                     print('Customer request is invalid.')
                     customer_id = input('Enter Customer ID: ')
                 print('')
-                print('Pending Request')
+                print('Pending Request') # pending request
                 table = [['Customer ID: ', customer_details[customer_id.upper()][0]], ['Email: ', customer_details[customer_id.upper()][1]], ['Tier: ', customer_details[customer_id.upper()][2]], ['Points: ', customer_details[customer_id.upper()][3]], ['Request: ', customer_details[customer_id.upper()][4]]]
                 print(tabulate(table))
                 print('')
@@ -345,9 +345,9 @@ while True:
         Book_Store['9781218951798'] = ['ASCENDING IN PYTHON', 'ADVENTURE', 'WILEY', 2015]
         Book_Store['9781213951798'] = ['AA IN PYTHON', 'ADVENTURE', 'WILEY', 2013]
 
-        customer_1 = Customer_Request('S111', 'John Tan', 'jtan@yahoo.com', 'C', 2000)
-        customer_2 = Customer_Request('S222', 'Bobby Tan', 'bobby@yahoo.com', 'B', 3000)
-        customer_3 = Customer_Request('S333', 'Tommy Tan', 'tommy@yahoo.com', 'D', 4000)
+        customer_1 = Customer_Request('S111', 'John TaY', 'jtay@yahoo.com', 'C', 2000)
+        customer_2 = Customer_Request('S112', 'Bob Tan', 'bob@yahoo.com', 'B', 3000)
+        customer_3 = Customer_Request('S113', 'Tommy Toh', 'tommy@yahoo.com', 'D', 4000)
 
         customer_details[customer_1.get_customer_id()] = [customer_1.get_name(), customer_1.get_email(), customer_1.get_tier(), customer_1.get_points(), customer_1.get_get_req()]
         customer_details[customer_2.get_customer_id()] = [customer_2.get_name(), customer_2.get_email(), customer_2.get_tier(), customer_2.get_points(), customer_2.get_get_req()]
@@ -359,3 +359,6 @@ while True:
         sys.exit()
     else:
         print('Error')
+
+
+# tabulate is a feature, formatting feature
