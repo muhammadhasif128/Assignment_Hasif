@@ -78,7 +78,7 @@ def merge(left, right):
             merged.append(right[right_index])
             right_index += 1
         else:
-            if left[left_index][0] >= right[right_index][0]:  # flip the sign to change it to descending, ISBN
+            if left[left_index][0] <= right[right_index][0]:  # flip the sign to change it to descending, ISBN
                 merged.append(left[left_index])
                 left_index += 1
             else:
@@ -337,13 +337,10 @@ while True:
                 break
 
     elif input_option == '8':
-        Book_Store['9781449340377'] = ["Python Cookbook", "Education", "Oreilly", 2013]
-        Book_Store['9781118951798'] = ["Adventures in Python", "Adventure", "Wiley", 2015]
-        Book_Store['9723428951798'] = ["I love DSA", "Studies", "Mark", 2019]
-        Book_Store['978144934377'] = ['PYTHON COOKBOOK', 'EDUCATION', 'OREILLY', 2015]
-        Book_Store['8978111895179'] = ['ADVENTURES IN PYTHON', 'ADVENTURE', 'WILEY', 2015]
-        Book_Store['9781218951798'] = ['ASCENDING IN PYTHON', 'ADVENTURE', 'WILEY', 2015]
-        Book_Store['9781213951798'] = ['AA IN PYTHON', 'ADVENTURE', 'WILEY', 2013]
+        Book_Store['9781449340377'] = ["PYTHON COOKBOOK", "EDUCATION", "OREILLY", 2014]
+        Book_Store['9723418961798'] = ["I LOVE DSA", "STUDIES", "MARK", 2019]
+        Book_Store['9781449342777'] = ['PYTHON COOKING', 'EDUCATION', 'OREILLY', 2015]
+        Book_Store['8978111895178'] = ['ADVENTURES IN PYTHON', 'ADVENTURE', 'WILEY', 2015]
 
         customer_1 = Customer_Request('S111', 'John TaY', 'jtay@yahoo.com', 'C', 2000)
         customer_2 = Customer_Request('S112', 'Bob Tan', 'bob@yahoo.com', 'B', 3000)
