@@ -2,6 +2,14 @@
 # Admin No: 224493J
 # Class: CS2202
 
+# Features:
+# Space checker
+# formatting of customer id,
+# pending requests,
+# timestamp
+# and formatting of request messages
+# validations
+
 import sys  # program exits properly, instead if break
 import datetime
 from tabulate import tabulate
@@ -187,7 +195,7 @@ while True:
     print("[7] ----- Manage customer request")
     print("[8] ----- Populate data")
     print("[0] ----- Exit Book Management System ----- \n")
-    input_option = input("Please enter your option :) \n[1]-[9] and [0]: ")
+    input_option = input("Please enter your option :) \n[1]-[8] and [0]: ")
 
     if input_option == '1':
         for keys in Book_Store:
@@ -356,6 +364,5 @@ while True:
         sys.exit()
     else:
         print('Error')
-
 
 # tabulate is a feature, formatting feature
